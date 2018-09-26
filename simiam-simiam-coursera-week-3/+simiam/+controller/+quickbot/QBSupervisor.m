@@ -65,7 +65,7 @@ classdef QBSupervisor < simiam.controller.Supervisor
             
             obj.theta_d     = pi/4;
             obj.v           = 0.2;
-            obj.goal        = [-1, 1];
+            obj.goal        = [1, -1];
             obj.d_stop      = 0.05;
             
             obj.p = simiam.util.Plotter();
@@ -134,11 +134,11 @@ classdef QBSupervisor < simiam.controller.Supervisor
             %% START CODE BLOCK %%
             
             if (vel_rl_max > obj.robot.max_vel)
-                vel_r = vel_r_d - 0;
-                vel_l = vel_l_d - 0;
+                vel_r = vel_r_d - vel_rl_max-obj.robot.max_vel;
+                vel_l = vel_l_d - vel_rl_max-obj.robot.max_vel;
             elseif (vel_rl_min < -obj.robot.max_vel)
-                vel_r = vel_r_d - 0;
-                vel_l = vel_l_d - 0;
+                vel_r = vel_r_d - vel_rl_min+obj.robot.max_vel;
+                vel_l = vel_l_d - vel_rl_min+obj.robot.max_vel;
             else
                 vel_r = vel_r_d;
                 vel_l = vel_l_d;
